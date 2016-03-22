@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <link href="css/headers.css" rel="stylesheet" type="text/css" />
+        <link href="css/app.css" rel="stylesheet" type="text/css" />
+        <link href="css/input_areas.css" rel="stylesheet" type="text/css" />
+        <link href="css/buttons.css" rel="stylesheet" type="text/css" />
+
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+    </head>
+
+    <body>
+
+        <section role="region">
+            <header>
+                <menu type="toolbar">
+                    <a href="index.html"><span class="icon icon-back">back</span></a>
+                </menu>
+                <h1>AlKateg. Hozzáadás</h1>
+            </header>
+
+            <div>
+                <form onsubmit="return false;">
+                    <input id="Kategoria" type="text" placeholder="Kategoria" value="" />
+                    <input id="AlKategoria" type="text" placeholder="AlKategoria" value="" />
+
+                    <button id="Felvitel" class="recommend">Felvitel</button>
+                </form>
+            </div>
+        </section>
+
+        <script type="text/javascript">
+            document.getElementById("Felvitel").addEventListener("click", function () {
+                var IDBOpenDBRequest_AdatKapcs = window.indexedDB.open("Penztarolo", 1);
+
+                IDBOpenDBRequest_AdatKapcs.onsuccess = function () {
+                    console.log("OnSuccess");
+                    var IDBDatabase_db = this.result;
+                    var IDBTransaction_Tr1 = IDBDatabase_db.transaction("AlKategoriak", "readwrite");
+                    IDBTransaction_Tr1.oncomplete = function () {
+                        console.log("Sikerrel be lett szúrva az objektum, vége tranzakciónak :-)");
+                        IDBDatabase_db.close();
+                    };
+
+                    var IDBObjectStore_AlKategoriakTr = IDBTransaction_Tr1.objectStore("AlKategoriak");
+                    var IDBRequest_Breq1 = IDBObjectStore_AlKategoriakTr.add({Kategoria: document.getElementById("Kategoria").value, AlKategoria: document.getElementById("AlKategoria").value});
+                    IDBRequest_Breq1.onsuccess = function () {
+                        console.log("Sikerült a Kategória felvitele :-)");
+                    };
+
+                    IDBRequest_Breq1.onerror = function () {
+                        console.log("Sikertelen a Kategória felvitele :-(");
+                    };
+                };
+
+                IDBOpenDBRequest_AdatKapcs.onerror = function () {
+                    console.log("Sikertelen az Adatbazis megnyitása :-(");
+                };
+            });
+        </script>
+    </body>
+</html>

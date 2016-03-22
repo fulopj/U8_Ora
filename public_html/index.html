@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <link href="css/headers.css" rel="stylesheet" type="text/css" />
+        <link href="css/drawer.css" rel="stylesheet" type="text/css" />
+        
+        <link href="css/app.css" rel="stylesheet" type="text/css" />
+        <link href="css/input_areas.css" rel="stylesheet" type="text/css" />
+        <link href="css/buttons.css" rel="stylesheet" type="text/css" />
+
+    </head>
+    
+    <body>
+        <div>
+            <section data-type="sidebar">
+                <header>
+                    <!--<menu type="toolbar">
+                            <a href="#content"><span class="icon icon-add">add</span></a>
+                    </menu>-->
+                    <h1>Funkciók</h1>
+                </header>
+                <nav>
+                    <ul>
+                        <li id="Kategoria_Hozzaadas"><a href="#">Kategória hozzáadása</a></li>
+                        <li id="AlKategoria_Hozzaadas"><a href="#">AlKategória hozzáadása</a></li>
+                        <li id="Hol_Hozzaadas"><a href="#">Hol hozzáadása</a></li>
+                        <li id="Honnan_Hozzaadas"><a href="#">Honnan hozzáadása</a></li>
+                    </ul>
+                </nav>
+            </section>
+            
+            <section id="drawer" role="region">
+                <header>
+                    <a href="#content"><span class="icon icon-menu">hide sidebar</span></a>
+                    <a href="#drawer"><span class="icon icon-menu">show sidebar</span></a>
+                    <h1>Pénztárca</h1>
+                </header>
+                
+                <div role="main">
+                    <form onsubmit="return false;">
+                        <input id="Datum" type="date" style="width: 48%;" placeholder="Dátum" value="" />
+                        <input id="Ido" type="time" style="width: 48%;" placeholder="Idő" value="" />
+
+                        <input id="Osszeg" type="number" style="width: 74%; display: inline;" placeholder="Összeg" value="" />
+                        <input id="Koltseg" type="number" style="width: 22%; display: inline;" placeholder="Ktg." value="" />
+
+                        <input id="Kategoria" type="text" style="width: 48%; display: inline;" placeholder="Kategória" value="" />
+                        <input id="AlKategoria" type="text" style="width: 48%; display: inline;" placeholder="AlKategória" value="" />
+                        <input id="Hol" type="text" placeholder="Hol" value="" />
+                        <input id="Honnan" type="text" placeholder="Honnan" value="" />
+
+                        <button id="Bevitel" class="recommend">Bevitel</button>
+                    </form>
+                </div>
+            </section>
+        </div>
+
+        <script type="text/javascript">
+            function mentes () {
+                window.sessionStorage.setItem ("Datum", document.getElementById ("Datum").value + "");
+                window.sessionStorage.setItem ("Ido", document.getElementById ("Ido").value + "");
+                window.sessionStorage.setItem ("Osszeg", document.getElementById ("Osszeg").value + "");
+                window.sessionStorage.setItem ("Koltseg", document.getElementById ("Koltseg").value + "");
+                window.sessionStorage.setItem ("Kategoria", document.getElementById ("Kategoria").value + "");
+                window.sessionStorage.setItem ("AlKategoria", document.getElementById ("AlKategoria").value + "");
+                window.sessionStorage.setItem ("Hol", document.getElementById ("Hol").value + "");
+                window.sessionStorage.setItem ("Honnan", document.getElementById ("Honnan").value + "");
+            }
+
+            document.getElementById ("Kategoria_Hozzaadas").addEventListener ("click", function () {
+                mentes ();
+                console.log ("Mentes");
+                window.location.href = "Kategoria_Hozzaadas.html";
+            });
+
+            document.getElementById ("AlKategoria_Hozzaadas").addEventListener ("click", function () {
+                mentes ();
+                console.log ("Mentes");
+                window.location.href = "AlKategoria_Hozzaadas.html";
+            });
+
+            document.getElementById ("Hol_Hozzaadas").addEventListener ("click", function () {
+                mentes ();
+                console.log ("Mentes");
+                window.location.href = "Hol_Hozzaadas.html";
+            });
+
+            document.getElementById ("Honnan_Hozzaadas").addEventListener ("click", function () {
+                mentes ();
+                console.log ("Mentes");
+                window.location.href = "Honnan_Hozzaadas.html";
+            });
+
+
+            window.onload = function () {
+                document.getElementById ("Datum").value = window.sessionStorage.getItem("Datum") == null ?"" :window.sessionStorage.getItem("Datum");
+                document.getElementById ("Ido").value = window.sessionStorage.getItem("Ido") == null ?"" :window.sessionStorage.getItem("Ido");
+                document.getElementById ("Osszeg").value = window.sessionStorage.getItem("Osszeg") == null ?"" :window.sessionStorage.getItem("Osszeg");
+                document.getElementById ("Koltseg").value = window.sessionStorage.getItem("Koltseg") == null ?"" :window.sessionStorage.getItem("Koltseg");
+                document.getElementById ("Kategoria").value = window.sessionStorage.getItem("Kategoria") == null ?"" :window.sessionStorage.getItem("Kategoria");
+                document.getElementById ("AlKategoria").value = window.sessionStorage.getItem("AlKategoria") == null ?"" :window.sessionStorage.getItem("AlKategoria");
+                document.getElementById ("Hol").value = window.sessionStorage.getItem("Hol") == null ?"" :window.sessionStorage.getItem("Hol");
+                document.getElementById ("Honnan").value = window.sessionStorage.getItem("Honnan") == null ?"" :window.sessionStorage.getItem("Honnan");
+            };
+
+            document.getElementById ("Kategoria").addEventListener ("click", function () {
+                window.location.href = "Kategoria_Lista.html";
+            });
+
+            document.getElementById ("AlKategoria").addEventListener ("click", function () {
+                window.location.href = "AlKategoria_Lista.html";
+            });
+
+            document.getElementById ("Hol").addEventListener ("click", function () {
+                window.location.href = "Hol_Lista.html";
+            });
+
+            document.getElementById ("Honnan").addEventListener ("click", function () {
+                window.location.href = "Honnan_Lista.html";
+            });
+
+            document.getElementById ("Bevitel").addEventListener ("click", function () {
+                var IDBOpenDBRequest_AdatKapcs = window.indexedDB.open ("Penztarolo", 1);
+
+                IDBOpenDBRequest_AdatKapcs.onsuccess = function () {
+                    console.log ("OnSuccess");
+                    var IDBDatabase_db = this.result;
+                    
+                    var IDBTransaction_Tr1 = IDBDatabase_db.transaction (["Tetelek", "Honnanok"], "readwrite");
+                    IDBTransaction_Tr1.oncomplete = function () {
+                            console.log ("Sikerrel be lett szúrva az objektum, vége tranzakciónak :-)");
+                            IDBDatabase_db.close ();
+                            //window.close ();
+                    };
+
+                    var IDBObjectStore_TetelekTr = IDBTransaction_Tr1.objectStore ("Tetelek");
+                    var IDBRequest_Breq1 = IDBObjectStore_TetelekTr.add ({Datum: document.getElementById ("Datum").value, Ido: document.getElementById ("Ido").value, Osszeg: document.getElementById ("Osszeg").value, Koltseg: document.getElementById ("Koltseg").value, Kategoria: document.getElementById ("Kategoria").value, AlKategoria: document.getElementById ("AlKategoria").value, Hol: document.getElementById ("Hol").value, Honnan: document.getElementById ("Honnan").value});
+                    IDBRequest_Breq1.onsuccess = function () {
+                            console.log ("Sikerült a Tetel felvitele :-)");
+                    };
+
+                    IDBRequest_Breq1.onerror = function () {
+                            console.log ("Sikertelen a Tetel felvitele :-(");
+                    };
+
+                    var IDBObjectStore_HonnanokTr = IDBTransaction_Tr1.objectStore ("Honnanok");
+                    var IDBIndex_Index1 = IDBObjectStore_HonnanokTr.index ("Honnan");
+                    
+                    var IDBRequest_Kreq1 = IDBIndex_Index1.openCursor (IDBKeyRange.only (document.getElementById ("Honnan")));
+                    IDBRequest_Kreq1.onsuccess = function (evt) {
+                        var IDBCursorWithValue_Cursor = evt.target.result;
+                        if (IDBCursorWithValue_Cursor) {
+                            //Itt fogjuk folytatni következő órán ;-)
+                            IDBCursorWithValue_Cursor.continue ();
+                        }
+
+                    };
+
+                    IDBRequest_Kreq1.onerror = function () {
+                        console.log ("Nem járt sikerrel a Honnan megtalálása :-(");
+                    };
+
+                };
+
+                IDBOpenDBRequest_AdatKapcs.onerror = function () {
+                        console.log ("Sikertelen az Adatbazis megnyitása :-(");
+                };
+            });
+        </script>
+    </body>
+</html>
